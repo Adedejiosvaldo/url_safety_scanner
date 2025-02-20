@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 
 	"github.com/adedejiosvaldo/safe_url/cmd"
 	"github.com/gin-gonic/gin"
@@ -13,7 +12,6 @@ func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
 
 	r := gin.Default()
 
@@ -35,7 +33,13 @@ func main() {
 			return
 		}
 
-		ctx.JSON(200, gin.H{"message": "URL Safety Scanner", "result": result})
+		isSafe, err := cmd.CheckURL(input.URL)
+		if err != nil {
+			ctx.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+
+		ctx.JSON(200, gin.H{"message": "URL Safety Scanner", "result": result, "isSafe": isSafe})
 	})
 
 	r.Run(":8080")

@@ -3,7 +3,6 @@ package cmd
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -13,7 +12,6 @@ import (
 func UseURLScannerAPI(url string) (map[string]interface{}, error) {
 
 	API_KEY := os.Getenv("URL_SCAN_KEY")
-	fmt.Println(API_KEY)
 	postBody, _ := json.Marshal(map[string]string{
 		"url":        url,
 		"visibility": "public",
