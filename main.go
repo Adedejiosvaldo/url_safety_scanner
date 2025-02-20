@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/adedejiosvaldo/safe_url/cmd"
 	"github.com/gin-gonic/gin"
@@ -12,6 +13,8 @@ func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Error loading .env file")
 	}
+
+
 	r := gin.Default()
 
 	r.GET("/", func(ctx *gin.Context) {
