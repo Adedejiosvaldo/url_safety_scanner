@@ -1,10 +1,17 @@
 package main
 
 import (
-	"fmt"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 
-	fmt.Print("Url Safety Scanner")
+	r := gin.Default()
+
+	r.GET("/", func(ctx *gin.Context) {
+		ctx.JSON(200, gin.H{"message": "URL Safety Scanner"})
+	})
+
+	r.Run(":8080")
+
 }
