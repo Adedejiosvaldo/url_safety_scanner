@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"regexp"
@@ -86,6 +87,7 @@ func CheckURL(urlToCheck string) (bool, error) {
 	}
 
 	matches, exists := result["matches"]
+	fmt.Println("matches", matches)
 	return !exists || len(matches.([]interface{})) == 0, nil
 }
 
@@ -97,6 +99,7 @@ func ClassifyURLs(urls []string) map[string]string {
 	classified := make(map[string]string)
 	for _, url := range urls {
 		isSafe, err := CheckURL(url)
+		fmt.Println("IsSafe", isSafe)
 		if err != nil {
 			classified[url] = "error"
 		} else if isSafe {
@@ -108,12 +111,111 @@ func ClassifyURLs(urls []string) map[string]string {
 	return classified
 }
 
-// BuildResponseMessage creates a formatted response message
+const (
+	urlResultTemplate = `
+%s URL Check: %s
+→ Status: %s
+→ Recommendation: %s
+%s
+
+`
+)
+
+func getRecommendationWithAction(classification string, url string) (string, string, string) {
+	cleanURL := strings.Split(url, "\">")[0]
+
+	switch classification {
+	case "safe":
+		action := fmt.Sprintf("→ Action: <a href=\"%s\" style=\"color: #0000EE; text-decoration: underline;\">Click here to visit website</a>", cleanURL)
+		return "✅", "This link appears safe. You can proceed to visit it.", action
+	case "suspicious":
+		return "⚠️", "Exercise caution before visiting this link. It shows suspicious patterns.", "→ Action: URL hidden for your safety"
+	case "error":
+		return "❌", "Unable to verify this link's safety.", "→ Action: URL blocked - verification failed"
+	default:
+		return "❓", "Couldn't determine link safety.", "→ Action: URL hidden until verification"
+	}
+}
+
+// func getRecommendationWithAction(classification string, url string) (string, string, string) {
+// 	switch classification {
+// 	case "safe":
+// 		action := fmt.Sprintf("→ Action: Click here to visit: %s", url)
+// 		return "✅", "This link appears safe. You can proceed to visit it.", action
+// 	case "suspicious":
+// 		return "⚠️", "Exercise caution before visiting this link. It shows suspicious patterns.", "→ Action: URL hidden for your safety"
+// 	case "error":
+// 		return "❌", "Unable to verify this link's safety.", "→ Action: URL blocked - verification failed"
+// 	default:
+// 		return "❓", "Couldn't determine link safety.", "→ Action: URL hidden until verification"
+// 	}
+// }
+
 func BuildResponseMessage(msg string, classifications map[string]string) string {
 	var sb strings.Builder
-	sb.WriteString("Scanned message: " + msg + "\n")
+
 	for url, classification := range classifications {
-		sb.WriteString(url + " -> " + classification + "\n")
+		icon, recommendation, action := getRecommendationWithAction(classification, url)
+		cleanURL := strings.Split(url, "\">")[0]
+		displayURL := cleanURL
+		if classification != "safe" {
+			displayURL = "[URL Hidden]"
+		}
+		sb.WriteString(fmt.Sprintf(urlResultTemplate,
+			icon,
+			displayURL,
+			classification,
+			recommendation,
+			action))
 	}
+
 	return sb.String()
 }
+
+// func BuildResponseMessage(msg string, classifications map[string]string) string {
+// 	var sb strings.Builder
+
+// 	for url, classification := range classifications {
+// 		icon, recommendation := getRecommendation(classification)
+// 		cleanURL := strings.Split(url, "\">")[0]
+// 		sb.WriteString(fmt.Sprintf(urlResultTemplate,
+// 			icon,
+// 			cleanURL,
+// 			classification,
+// 			recommendation))
+// 	}
+
+// 	return sb.String()
+// }
+
+// func BuildResponseMessage(msg string, classifications map[string]string) string {
+// 	var sb strings.Builder
+// 	var safe, suspicious, errors int
+
+// 	// Add header
+// 	sb.WriteString(fmt.Sprintf(headerTemplate, msg))
+
+// 	// Add URL analysis
+// 	for url, classification := range classifications {
+// 		icon := "✅"
+// 		switch classification {
+// 		case "suspicious":
+// 			icon = "⚠️"
+// 			suspicious++
+// 		case "error":
+// 			icon = "❌"
+// 			errors++
+// 		default:
+// 			safe++
+// 		}
+// 		// Clean URL display by removing HTML artifacts
+// 		cleanURL := strings.Split(url, "\">")[0]
+// 		sb.WriteString(fmt.Sprintf(urlResultTemplate, icon, cleanURL, classification))
+// 	}
+
+// 	// Add summary
+// 	total := len(classifications)
+// 	sb.WriteString(fmt.Sprintf(summaryTemplate, total, safe, suspicious, errors))
+
+// 	return sb.String()
+// }
