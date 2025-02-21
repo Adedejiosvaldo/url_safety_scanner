@@ -32,3 +32,8 @@ func HandleScanRequest(c *gin.Context) {
 
 	c.JSON(http.StatusOK, response)
 }
+
+func HandleIntegrationRequest(c *gin.Context) {
+	services.GetIntegrationSpec(c)
+
+}
