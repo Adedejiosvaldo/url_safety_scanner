@@ -1,6 +1,6 @@
 module github.com/adedejiosvaldo/safe_url
 
-go 1.23.0
+go 1.23
 
 require (
 	github.com/bytedance/sonic v1.12.9 // indirect
