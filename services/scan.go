@@ -126,7 +126,7 @@ func getRecommendationWithAction(classification string, url string) (string, str
 
 	switch classification {
 	case "safe":
-		action := fmt.Sprintf("→ Action: <a href=\"%s\" style=\"color: #0000EE; text-decoration: underline;\">Click here to visit website</a>", cleanURL)
+		action := fmt.Sprintf("→ Action: <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color: #0000EE; text-decoration: underline;\">Click here to visit website</a>", cleanURL)
 		return "✅", "This link appears safe. You can proceed to visit it.", action
 	case "suspicious":
 		return "⚠️", "Exercise caution before visiting this link. It shows suspicious patterns.", "→ Action: URL hidden for your safety"
