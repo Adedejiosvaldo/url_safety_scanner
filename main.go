@@ -60,6 +60,8 @@ func main() {
 
 	r := gin.Default()
 
+	gin.SetMode(gin.ReleaseMode)
+
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{"status": "ok"})
 	})
