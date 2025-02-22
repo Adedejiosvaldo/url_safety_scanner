@@ -15,7 +15,7 @@ A Go-based web service that provides URL safety analysis using multiple security
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/safe_url_scanner.git
+git clone https://github.com/telex_integrations/safe_url_scanner.git
 
 # Navigate to project directory
 cd safe_url_scanner
@@ -75,17 +75,34 @@ Multiple API security checks
 Safe browsing verification
 Suspicious link warnings
 Hidden URLs for unsafe content
-Development
+
+## Testing
+
+Run unit tests locally with the following command:
 
 ```bash
-# Run the server
-go run main.go
-
-# Build the application
-go build
-
+go test -v ./...
 ```
 
-## Secreenshoot
-![Screenshot](https://i.imgur.com/qSzsyJq.png)
-Contributing
+## Deployment
+
+- Build the application using:
+
+  ```bash
+  go build
+  ```
+
+- Run the server:
+
+  ```bash
+  go run main.go
+  ```
+
+- Deployment details:
+  - GitHub Repository: [https://github.com/telex_integrations/safe_url_scanner](https://github.com/telex_integrations/safe_url_scanner)
+  - Hosted JSON file: [URL Scanner JSON ](https://url-safety-scanner-eg1x.onrender.com/integration-spec)
+  - Deployed URL: [Deployed Link](https://url-safety-scanner-eg1x.onrender.com/scan-url)
+
+## Telex Integration Details
+
+![Telex Channel Screenshot](https://i.imgur.com/qSzsyJq.png)
