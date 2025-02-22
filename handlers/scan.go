@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// HandleScanRequest processes incoming messages and classifies URLs
 func HandleScanRequest(c *gin.Context) {
 	var msgReq models.Message
 
@@ -17,11 +16,9 @@ func HandleScanRequest(c *gin.Context) {
 		return
 	}
 
-	// Extract and classify URLs
 	urls := services.ExtractURLs(msgReq.Message)
 	urlClassifications := services.ClassifyURLs(urls)
 
-	// Build response message
 	response := models.ResponsePayload{
 		EventName: "url_scanned",
 		Message:   services.BuildResponseMessage(msgReq.Message, urlClassifications),

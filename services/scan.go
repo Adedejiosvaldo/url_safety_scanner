@@ -33,13 +33,11 @@ type ThreatRequest struct {
 	} `json:"threatInfo"`
 }
 
-// ExtractURLs extracts URLs from the given text
 func ExtractURLs(text string) []string {
 	re := regexp.MustCompile(`https?://[^\s]+`)
 	return re.FindAllString(text, -1)
 }
 
-// CheckURL checks if a URL is safe using Google Safe Browsing API
 func CheckURL(urlToCheck string) (bool, error) {
 	API_KEY := os.Getenv("GOOGLE_SAFE_BROWSING_API_KEY")
 
@@ -91,7 +89,6 @@ func CheckURL(urlToCheck string) (bool, error) {
 	return !exists || len(matches.([]interface{})) == 0, nil
 }
 
-// ClassifyURLs checks URLs using Google Safe Browsing API
 func ClassifyURLs(urls []string) map[string]string {
 	mu.RLock()
 	defer mu.RUnlock()
@@ -137,20 +134,6 @@ func getRecommendationWithAction(classification string, url string) (string, str
 	}
 }
 
-// func getRecommendationWithAction(classification string, url string) (string, string, string) {
-// 	switch classification {
-// 	case "safe":
-// 		action := fmt.Sprintf("→ Action: Click here to visit: %s", url)
-// 		return "✅", "This link appears safe. You can proceed to visit it.", action
-// 	case "suspicious":
-// 		return "⚠️", "Exercise caution before visiting this link. It shows suspicious patterns.", "→ Action: URL hidden for your safety"
-// 	case "error":
-// 		return "❌", "Unable to verify this link's safety.", "→ Action: URL blocked - verification failed"
-// 	default:
-// 		return "❓", "Couldn't determine link safety.", "→ Action: URL hidden until verification"
-// 	}
-// }
-
 func BuildResponseMessage(msg string, classifications map[string]string) string {
 	var sb strings.Builder
 
@@ -171,51 +154,3 @@ func BuildResponseMessage(msg string, classifications map[string]string) string 
 
 	return sb.String()
 }
-
-// func BuildResponseMessage(msg string, classifications map[string]string) string {
-// 	var sb strings.Builder
-
-// 	for url, classification := range classifications {
-// 		icon, recommendation := getRecommendation(classification)
-// 		cleanURL := strings.Split(url, "\">")[0]
-// 		sb.WriteString(fmt.Sprintf(urlResultTemplate,
-// 			icon,
-// 			cleanURL,
-// 			classification,
-// 			recommendation))
-// 	}
-
-// 	return sb.String()
-// }
-
-// func BuildResponseMessage(msg string, classifications map[string]string) string {
-// 	var sb strings.Builder
-// 	var safe, suspicious, errors int
-
-// 	// Add header
-// 	sb.WriteString(fmt.Sprintf(headerTemplate, msg))
-
-// 	// Add URL analysis
-// 	for url, classification := range classifications {
-// 		icon := "✅"
-// 		switch classification {
-// 		case "suspicious":
-// 			icon = "⚠️"
-// 			suspicious++
-// 		case "error":
-// 			icon = "❌"
-// 			errors++
-// 		default:
-// 			safe++
-// 		}
-// 		// Clean URL display by removing HTML artifacts
-// 		cleanURL := strings.Split(url, "\">")[0]
-// 		sb.WriteString(fmt.Sprintf(urlResultTemplate, icon, cleanURL, classification))
-// 	}
-
-// 	// Add summary
-// 	total := len(classifications)
-// 	sb.WriteString(fmt.Sprintf(summaryTemplate, total, safe, suspicious, errors))
-
-// 	return sb.String()
-// }

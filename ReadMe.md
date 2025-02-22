@@ -21,7 +21,7 @@ git clone https://github.com/yourusername/safe_url_scanner.git
 cd safe_url_scanner
 
 # Install dependencies
-go mod install
+go mod download
 
 # Set up environment variables
 cp .env
@@ -86,10 +86,6 @@ go build
 
 ```
 
+## Secreenshoot
+![Screenshot](https://i.imgur.com/qSzsyJq.png)
 Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request

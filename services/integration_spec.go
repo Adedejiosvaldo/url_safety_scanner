@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// IntegrationSpec represents the JSON configuration for Telex integration
+// IntegrationSpec for Telex integration
 type IntegrationSpec struct {
 	Data struct {
 		Author       string `json:"author"`
@@ -37,7 +37,6 @@ type Setting struct {
 	Type     string `json:"type"`
 }
 
-// GetIntegrationSpec serves the integration specification as JSON
 func GetIntegrationSpec(c *gin.Context) {
 	spec := IntegrationSpec{}
 	spec.Data.Author = "Joseph"
