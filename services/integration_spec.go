@@ -43,7 +43,7 @@ func GetIntegrationSpec(c *gin.Context) {
 	spec.Data.Author = "Joseph"
 	spec.Data.Descriptions.AppName = "URL Scanner"
 	spec.Data.Descriptions.AppDescription = "Scans messages for URLs and classifies them as safe or suspicious."
-	spec.Data.Descriptions.AppLogo = "https://example.com/logo.png"
+	spec.Data.Descriptions.AppLogo = "https://picsum.photos/200/300"
 	spec.Data.Descriptions.AppURL = "https://2005-102-88-84-94.ngrok-free.app/scan-url"
 	spec.Data.IntegrationCategory = "Security & Compliance"
 	spec.Data.IntegrationType = "modifier"
@@ -58,8 +58,8 @@ func GetIntegrationSpec(c *gin.Context) {
 	}
 	spec.Data.Permissions.Events = []string{"Receive messages from Telex channels", "Scan for URLs", "Send scan results"}
 	spec.Data.KeyFeatures = []string{"Receive messages from Telex channels", "Scan for URLs", "Send scan results"}
-	spec.Data.TargetURL = "https://2005-102-88-84-94.ngrok-free.app/scan-url"
-	spec.Data.TickURL = "https://2005-102-88-84-94.ngrok-free.app/scan-url"
+	spec.Data.TargetURL = "https://url-safety-scanner-eg1x.onrender.com/scan-url"
+	spec.Data.TickURL = "https://url-safety-scanner-eg1x.onrender.com/scan-url"
 	spec.Data.Website = "https://telex.im"
 
 	c.JSON(http.StatusOK, spec)
