@@ -44,7 +44,7 @@ func GetIntegrationSpec(c *gin.Context) {
 	spec.Data.Descriptions.AppName = "URL Scanner"
 	spec.Data.Descriptions.AppDescription = "Scans messages for URLs and classifies them as safe or suspicious."
 	spec.Data.Descriptions.AppLogo = "https://picsum.photos/200/300"
-	spec.Data.Descriptions.AppURL = "https://2005-102-88-84-94.ngrok-free.app/scan-url"
+	spec.Data.Descriptions.AppURL = "https://url-safety-scanner-eg1x.onrender.com/scan-url"
 	spec.Data.IntegrationCategory = "Security & Compliance"
 	spec.Data.IntegrationType = "modifier"
 	spec.Data.IsActive = true
