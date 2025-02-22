@@ -5,7 +5,6 @@ import (
 
 	"github.com/adedejiosvaldo/safe_url/config"
 	"github.com/adedejiosvaldo/safe_url/routes"
-	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
 
@@ -54,17 +53,10 @@ import (
 // }
 
 func main() {
+
 	if err := godotenv.Load(); err != nil {
 		log.Println("Warning: .env file not found; using environment variables")
 	}
-
-	r := gin.Default()
-
-	gin.SetMode(gin.ReleaseMode)
-
-	r.GET("/", func(ctx *gin.Context) {
-		ctx.JSON(200, gin.H{"status": "ok"})
-	})
 
 	port := config.GetPort()
 	router := routes.SetupRouter()
