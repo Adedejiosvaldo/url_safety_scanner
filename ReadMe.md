@@ -103,6 +103,14 @@ go test -v ./...
   - Hosted JSON file: [URL Scanner JSON ](https://url-safety-scanner-eg1x.onrender.com/integration-spec)
   - Deployed URL: [Deployed Link](https://url-safety-scanner-eg1x.onrender.com/scan-url)
 
-## Telex Integration Details
+## Telex Integration Details (Telex App)
+1. Go to the App Section in the telex dashboard.
+2. Add New Integration
+3. Add Integration Spec URL.
+4. Activate Integration
 
+## Usage in Telex
+1. Go to any Channel
+2. Type in a url link
+3. URL gets scanned and response gets returned
 ![Telex Channel Screenshot](https://i.imgur.com/qSzsyJq.png)
