@@ -40,7 +40,7 @@ type Setting struct {
 func GetIntegrationSpec(c *gin.Context) {
 	spec := IntegrationSpec{}
 	spec.Data.Author = "Joseph"
-	spec.Data.Descriptions.AppName = "URL Scanner"
+	spec.Data.Descriptions.AppName = "Real-Time Scam & Phishing URL Detector"
 	spec.Data.Descriptions.AppDescription = "Scans messages for URLs and classifies them as safe or suspicious."
 	spec.Data.Descriptions.AppLogo = "https://picsum.photos/200/300"
 	spec.Data.Descriptions.AppURL = "https://url-safety-scanner-eg1x.onrender.com/scan-url"
